@@ -1,0 +1,258 @@
+@font-face {
+    font-family: 'Codera Display';
+    src: url('../fonts/BarlowSemiCondensed-ExtraBoldItalic.woff2') format('woff2');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Codera Text';
+    src: url('../fonts/Inter-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --radial-dark: rgba(10, 11, 13, 0.54);
+    --radial-dark-hover: rgba(10, 11, 13, 0.92);
+    --radial-line: rgba(4, 5, 7, 0.28);
+    --radial-outer-line: rgba(4, 5, 7, 0.2);
+    --radial-white: #f5f6f3;
+    --radial-black: #111516;
+    --display-font: 'Codera Display', 'Barlow Condensed', Impact, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: transparent !important;
+}
+
+#icons,
+svg.icons,
+.container { display: none; }
+
+div.menuHolder {
+    position: absolute;
+    top: 24%;
+    left: 71%;
+    margin: 0;
+    isolation: isolate;
+    transform: translateX(-50%);
+    transform-origin: center center;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+/* The reference has no vignette or halo behind the wheel. */
+div.menuHolder::before {
+    display: none;
+}
+
+svg.menu {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: none;
+    transition: opacity 150ms ease, transform 180ms cubic-bezier(.2, .8, .2, 1);
+}
+
+svg.menu.inner {
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.72) rotate(-9deg);
+}
+
+svg.menu.outer {
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(1.07) rotate(4deg);
+}
+
+svg.menu > g > path {
+    fill: var(--radial-dark);
+    stroke: var(--radial-line);
+    stroke-linejoin: round;
+    stroke-width: 1.2;
+    vector-effect: non-scaling-stroke;
+    transition: fill 90ms ease, stroke 90ms ease;
+}
+
+svg.menu > g.sector > path { cursor: pointer; }
+
+svg.menu > g.sector > text {
+    fill: var(--radial-white);
+    font-family: var(--display-font) !important;
+    font-size: var(--item-font-size, 3.05px);
+    font-style: italic;
+    font-weight: 800;
+    letter-spacing: 0.1px;
+    paint-order: stroke fill;
+    stroke: rgba(0, 0, 0, 0.72);
+    stroke-width: 0.18px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+svg.menu > g.sector > svg {
+    fill: var(--radial-white);
+    filter:
+        drop-shadow(0 1.25px 0 rgba(0, 0, 0, 0.82))
+        drop-shadow(0 0 1.1px rgba(0, 0, 0, 0.88));
+    cursor: pointer;
+}
+
+svg.menu > g.sector > svg > path {
+    paint-order: stroke fill;
+    stroke: rgba(5, 6, 8, 0.72);
+    stroke-linejoin: round;
+    stroke-width: 0.65px;
+    vector-effect: non-scaling-stroke;
+}
+
+svg.menu > g.sector.selected > path {
+    fill: var(--radial-white);
+    stroke: var(--radial-line);
+}
+
+svg.menu > g.sector.selected > text,
+svg.menu > g.sector.selected > svg {
+    fill: var(--radial-black);
+    stroke: none;
+    filter: none;
+}
+
+svg.menu > g.sector.selected > svg > path {
+    stroke: var(--radial-black);
+    stroke-width: 0.45px;
+}
+
+svg.menu > g.center > circle {
+    fill: var(--radial-dark);
+    stroke: var(--radial-line);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+    cursor: pointer;
+    transition: fill 100ms ease;
+}
+
+svg.menu > g.center:hover > circle { fill: var(--radial-dark-hover); }
+
+svg.menu > circle.wheel-ring {
+    fill: none;
+    stroke: var(--radial-outer-line);
+    pointer-events: none;
+    vector-effect: non-scaling-stroke;
+}
+
+/* Sector paths already draw this edge; avoid a darker overlapping outline. */
+svg.menu > circle.wheel-ring--edge { stroke-width: 0; }
+
+svg.menu > circle.wheel-ring--outer {
+    stroke-width: 4.6;
+    opacity: 0.82;
+}
+
+svg.menu > path.selection-arc,
+svg.menu > path.center-selection-arc {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: butt;
+    stroke-width: 4;
+    pointer-events: none;
+    vector-effect: non-scaling-stroke;
+}
+
+svg.menu > path.center-selection-arc { stroke-width: 4.5; }
+
+svg.menu > g.center > text {
+    fill: var(--radial-white);
+    font-family: var(--display-font) !important;
+    font-size: 4.5px;
+    font-style: italic;
+    font-weight: 800;
+    letter-spacing: 0.12px;
+    paint-order: stroke fill;
+    stroke: rgba(0, 0, 0, 0.65);
+    stroke-width: 0.16px;
+    cursor: pointer;
+    dominant-baseline: central;
+    alignment-baseline: central;
+}
+
+svg.menu > g.center.center--menu > text { font-size: 5.15px; }
+
+svg.menu > g.center > svg {
+    fill: var(--radial-white);
+    filter: drop-shadow(0.5px 0.6px 0 rgba(0, 0, 0, 0.9));
+    cursor: pointer;
+}
+
+.radial-controls {
+    position: absolute;
+    top: calc(105% + 50px);
+    left: 50%;
+    display: flex;
+    visibility: hidden;
+    align-items: center;
+    justify-content: center;
+    min-width: 235px;
+    height: 44px;
+    padding: 0 16px;
+    opacity: 0;
+    color: #111516;
+    background: var(--radial-white);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.17);
+    font-family: var(--display-font);
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 800;
+    letter-spacing: 0.25px;
+    white-space: nowrap;
+    transform: translateX(-50%);
+    transition: opacity 140ms ease;
+}
+
+.menuHolder.is-open .radial-controls {
+    visibility: visible;
+    opacity: 1;
+}
+
+.radial-controls__divider {
+    width: 1px;
+    height: 21px;
+    margin: 0 17px;
+    background: rgba(17, 21, 22, 0.2);
+    transform: skewX(-17deg);
+}
+
+.mouse-hint {
+    display: block;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    margin: 0 4px 0 -6px;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+    /* source PNG is white; darken it so it reads on the light bar */
+    filter: brightness(0);
+}
+
+@media (max-width: 1500px) {
+    div.menuHolder {
+        top: 23%;
+        left: 69%;
+        transform: translateX(-50%) scale(0.9);
+        transform-origin: top center;
+    }
+}
